@@ -1,26 +1,6 @@
-/*
-ID: sahajrastogi
-LANG: C++11
-*/
-
-#include <iostream>
 #include <bits/stdc++.h>
-#include <unordered_set>
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
-
-typedef long long ll;
-
-using namespace std;
-//using namespace __gnu_pbds;
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 #define pb push_back
-#define f first
-#define s second
-//#define int int64_t
-#define float double
-#define pi pair<int,int>
-#define pf pair<float,float>
+using namespace std;
 
 int n; int q;
 int par[200005][21];
@@ -34,13 +14,9 @@ void buildArr(int node, int p){
             par[node][i] = par[par[node][i-1]][i-1];
         }
     }
-
-    if(p == -1){
-        depth[node] = 0;
-    } else {
-        depth[node] = depth[p] + 1;
-    }
-
+    if(p == -1) depth[node] = 0;
+    else depth[node] = depth[p] + 1;
+    
     for(auto x : adj[node]){
         if(x == p) continue;
         buildArr(x,node);
@@ -51,9 +27,7 @@ void buildArr(int node, int p){
 int bigStepper(int node, int k){
     int x = 0;
     for(int i=0;i<20;i++){
-        if(k%2==1){
-            node = par[node][i];
-        }
+        if(k%2==1) node = par[node][i];
         k /= 2;
     }
     return node;
@@ -72,9 +46,7 @@ int lca(int a, int b){
             b = par[b][i];
         }
     }
-
     return par[a][0];
-
 }
 signed main(){
     ios_base::sync_with_stdio(false);
@@ -98,18 +70,9 @@ signed main(){
     }
 
     buildArr(1,-1);
-
-    // for(int i=1;i<=n;i++){
-    //     for(int j=0;j<20;j++){
-    //         cout << par[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
     for(int i =0;i<q;i++){
         int a; int b; cin >> a >>b;
         cout << depth[a] + depth[b] - 2*depth[lca(a,b)] << "\n";
     }
-
 }
 
