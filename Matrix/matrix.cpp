@@ -28,7 +28,7 @@ struct matrix {
                 }
                 memcpy(m, x, sizeof(m));
         return *this;
-    }
+    } //m*=n -> m=m*n
 };
 void matrix_pow(matrix b, long long e, matrix &res) {
     memset(res.m, 0, sizeof res.m);
@@ -41,7 +41,19 @@ void matrix_pow(matrix b, long long e, matrix &res) {
     b *= b;
     }
 }
-
+matrix multiply(const matrix &a, const matrix &b){
+        matrix c(a.r, b.c);
+        if(a.c!=b.r) cout<< "bad matrix multiplication";
+        for(int i=0;i<a.r;i++){
+            for(int j=0;j<b.c;j++){
+                for(int k=0;k<a.c;k++){
+                    c.m[i][j]+=a.m[i][k]*b.m[k][j];
+                    c.m[i][j]%=mod;
+                }
+            }
+        }
+        return c;
+    }
 signed main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
