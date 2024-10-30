@@ -48,6 +48,24 @@ struct matrix {
         *this = *this * b;
         return *this;
     }
+
+    matrix operator ^(long long e){
+        matrix res(r,r);
+        matrix b = *this;
+        for (int i = 0; i < r; ++i)
+            res.m[i][i] = 1;
+        if (e == 0) return;
+        while (true) {
+            if (e & 1) res *= b;
+            if ((e >>= 1) == 0) break;
+            b *= b;
+        }
+    }
+
+    matrix operator ^=(long long e){
+        *this = *this ^ e;
+        return *this;
+    }
 };
 void matrix_pow(matrix b, long long e, matrix &res) {
     memset(res.m, 0, sizeof res.m);
