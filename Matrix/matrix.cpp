@@ -17,18 +17,37 @@ struct matrix {
             cout << endl;
         }
     }
-    int x[MN][MN];
-    matrix & operator *= (const matrix &o) {
-        memset(x, 0, sizeof x);
-        for (int i = 0; i < r; ++i)
-            for (int k = 0; k < c; ++k)
-                if (m[i][k] != 0)
-                for (int j = 0; j < c; ++j) {
-                    x[i][j] = (x[i][j] + ((m[i][k] * o.m[k][j]) % mod))% mod;
+    //int x[MN][MN];
+    // matrix & operator *= (const matrix &o) {
+    //     memset(x, 0, sizeof x);
+    //     for (int i = 0; i < r; ++i)
+    //         for (int k = 0; k < c; ++k)
+    //             if (m[i][k] != 0)
+    //             for (int j = 0; j < c; ++j) {
+    //                 x[i][j] = (x[i][j] + ((m[i][k] * o.m[k][j]) % mod))% mod;
+    //             }
+    //             memcpy(m, x, sizeof(m));
+    //     return *this;
+    // } //m*=n -> m=m*n
+
+    matrix operator *(const matrix &b){
+        matrix res(r, b.c);
+        if(c!=b.r) cout<< "bad matrix multiplication";
+        for(int i=0;i<r;i++){
+            for(int j=0;j<b.c;j++){
+                for(int k=0;k<c;k++){
+                    res.m[i][j]+=m[i][k]*b.m[k][j];
+                    res.m[i][j]%=mod;
                 }
-                memcpy(m, x, sizeof(m));
+            }
+        }
+        return res;
+    }
+
+    matrix operator *=(const matrix &b){
+        *this = *this * b;
         return *this;
-    } //m*=n -> m=m*n
+    }
 };
 void matrix_pow(matrix b, long long e, matrix &res) {
     memset(res.m, 0, sizeof res.m);
@@ -38,22 +57,10 @@ void matrix_pow(matrix b, long long e, matrix &res) {
     while (true) {
         if (e & 1) res *= b;
         if ((e >>= 1) == 0) break;
-    b *= b;
+        b *= b;
     }
 }
-matrix multiply(const matrix &a, const matrix &b){
-        matrix c(a.r, b.c);
-        if(a.c!=b.r) cout<< "bad matrix multiplication";
-        for(int i=0;i<a.r;i++){
-            for(int j=0;j<b.c;j++){
-                for(int k=0;k<a.c;k++){
-                    c.m[i][j]+=a.m[i][k]*b.m[k][j];
-                    c.m[i][j]%=mod;
-                }
-            }
-        }
-        return c;
-    }
+
 signed main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
