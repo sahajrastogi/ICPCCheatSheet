@@ -33,8 +33,8 @@ struct bigint {
         s[len++] = num;
     }
 
-    bigint(const char* num) {
-        int l = strlen(num);
+    bigint(const string num) {
+        int l = num.size();
         len = l/BASE_LENGTH;
         if (l % BASE_LENGTH) len++;
         int index = 0;
@@ -159,6 +159,7 @@ signed main(){
     bigint a; bigint b;
     for(int i=0;i<t;i++){
         string s1; string s2;cin >> s1 >> s2;
+        a = bigint(s1); b = bigint(s2);
         
     }
 
