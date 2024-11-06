@@ -7,3 +7,4 @@ int power(int b, int e, int m) {
         } b = b * b;b%= m;e >>= 1;
     } return res;
 }
+int inv(int b, int m){ return power(b,m-2,m);}
