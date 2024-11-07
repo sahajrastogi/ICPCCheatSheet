@@ -3,10 +3,10 @@
 
 using namespace std;
 #define pb push_back
-#define pi pair<int,int>
 #define f first
 #define s second
 #define int int64_t
+#define pi pair<int,int>
 
 
 pi operator-(const pi &l, const pi &r) { return {l.f - r.f, l.s - r.s}; }

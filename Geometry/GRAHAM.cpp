@@ -3,15 +3,14 @@
 
 using namespace std;
 #define pb push_back
-#define pi pair<int,int>
 #define f first
 #define s second
 #define int int64_t
+#define pi pair<int,int>
 
 
 pi operator-(const pi &l, const pi &r) { return {l.f - r.f, l.s - r.s}; }
 int norm(const pi &p) { return (p.f*p.f) + (p.s*p.s); }  // x^2 + y^2
-
 int cross(const pi &a, const pi &b) { return a.f * b.s - a.s * b.f; }  // cross product
 int cross(const pi &p, const pi &a, const pi &b) {                      // cross product
 	return cross(a - p, b - p);
