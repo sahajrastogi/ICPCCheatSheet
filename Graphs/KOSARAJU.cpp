@@ -73,14 +73,6 @@ signed main(){
             cout << " "<<x;
         }
         if(i!=k) cout << "\n";
-    }
-
-    
-    
-    
-    
-
-
-    
+    }    
     
 }
